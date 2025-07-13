@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Escape the Arena (Text Only)</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        h1, h2 { color: #2c3e50; }
+        textarea { width: 100%; height: 100px; margin-top: 10px; }
+        button { padding: 10px 20px; margin-top: 10px; }
+        input[type="text"] { width: 100%; padding: 10px; margin: 10px 0; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<h1>Escape the Arena</h1>
+<p>Welcome to the Hunger Games-themed leadership escape room!
+You’ll work individually or in teams to explore Kouzes and Posner’s Five Practices of Exemplary Leadership. Each of the five practices is introduced through two puzzles—ten challenges total.
+Some challenges include video clips or artwork inspired by scenes from The Hunger Games. Each includes a multiple-choice question and a required reflection prompt. Note: Some questions may seem to have more than one reasonable answer. Your goal is to choose the best one based on your understanding of effective leadership.
+After each correct answer, you’ll receive a clue word in ALL CAPS. Keep track of these! At the end of the activity, you’ll enter all ten clue words to solve the final puzzle.
+Once the puzzle is solved, you’ll unlock a downloadable report containing your name, answers, and reflections. Submit that file on Canvas in the designated assignment area. Your reflections are the most important part—take your time with them.</p>
+
+<div id="challenge-container"></div>
+
+<div id="final-section" class="hidden">
+    <h2>Final Challenge: Enter the Clue Words</h2>
+    <p>You should now have collected 10 clue words, one from each challenge.
+Please enter them in the order you received them, using ALL CAPITAL LETTERS.
+If all clue words are correct, you'll unlock your certificate and reflection report.</p>
+    
+        <input type="text" id="clueinput0" placeholder="Clue Word 1">
+    
+        <input type="text" id="clueinput1" placeholder="Clue Word 2">
+    
+        <input type="text" id="clueinput2" placeholder="Clue Word 3">
+    
+        <input type="text" id="clueinput3" placeholder="Clue Word 4">
+    
+        <input type="text" id="clueinput4" placeholder="Clue Word 5">
+    
+        <input type="text" id="clueinput5" placeholder="Clue Word 6">
+    
+        <input type="text" id="clueinput6" placeholder="Clue Word 7">
+    
+        <input type="text" id="clueinput7" placeholder="Clue Word 8">
+    
+        <input type="text" id="clueinput8" placeholder="Clue Word 9">
+    
+        <input type="text" id="clueinput9" placeholder="Clue Word 10">
+    
+    <button onclick="validateClues()">Submit</button>
+    <div id="final-message" class="hidden">
+        <p>Congratulations, Tribute! You’ve demonstrated all Five Practices of Exemplary Leadership. You may now return to District 12 with honor.
+Please download the report in text and submit it to Canvas.</p>
+        <input type="text" id="username" placeholder="Enter your name or team name">
+        <button onclick="downloadTXT()">Download TXT Document</button>
+    </div>
+</div>
+
+<script>
+const challenges = [{"Challenge": 1.1, "Clue Word": "SELFLESS", "Correct Answer": "B", "Media": "", "Option A": "Pride", "Option B": "Selflessness", "Option C": "Determination", "Option D": "Defiance", "Practice": "", "Question": "What value does Katniss model in this moment?", "Reflection": "When have you (or someone else) acted on a core value, even when it was risky? What was the impact on your follower(s)?", "Scene": "During the Reaping in District 12, Primrose Everdeen is randomly selected as the female tribute for the Hunger Games. As Prim begins to step forward, Katniss Everdeen immediately volunteers to take her place.", "Title": "Katniss Volunteers"}, {"Challenge": 1.2, "Clue Word": "AUTHENTIC", "Correct Answer": "B", "Media": "", "Option A": "He\u0027s given up", "Option B": "He values authenticity", "Option C": "He wants to assert independence", "Option D": "He resents the Games", "Practice": "", "Question": "What does Peeta\u2019s statement reveal?", "Reflection": "When is it hard to be yourself? How do leaders model authenticity?", "Scene": "Peeta speaks with Katniss the night before the Reaping. He tells Katniss that he wants to die as himself, not as a piece in the Capitol\u0027s game. He says, \"I want to show them that they don\u0027t own me. If I\u0027m going to die, I want to still be me.\"", "Title": "Peeta Before the Reaping"}, {"Challenge": 2.1, "Clue Word": "UNITY", "Correct Answer": "C", "Media": "", "Option A": "She\u2019s honoring Rue\u2019s bravery", "Option B": "She\u2019s trying to express personal grief", "Option C": "She\u2019s honoring shared humanity", "Option D": "She wants revenge against the Capitol", "Practice": "", "Question": "What message does Katniss send with this gesture?", "Reflection": "How can leaders use symbolic actions to inspire others?", "Scene": "After Rue\u2019s death, Katniss gently arranges flowers around her body and gives her a respectful farewell. She places the flowers with care, then steps back and raises her fingers in the District 12 three-finger salute.", "Title": "Rue\u2019s Legacy"}, {"Challenge": 2.2, "Clue Word": "HOPE", "Correct Answer": "C", "Media": "", "Option A": "Expressing frustration without action", "Option B": "Exploring personal escape", "Option C": "Sharing an alternative and collective vision", "Option D": "Rejecting traditional leadership roles", "Practice": "", "Question": "What leadership behavior is Gale demonstrating in this scene?", "Reflection": "Have you ever imagined or helped others imagine a better future? What was the shared goal that brought people together?", "Scene": "Gale, speaking with Katniss in the woods before the Reaping, questions the Capitol\u2019s power and imagines a life where they live freely, outside the Games.", "Title": "Gale\u2019s Vision"}, {"Challenge": 3.1, "Clue Word": "REBEL", "Correct Answer": "B", "Media": "", "Option A": "An emotional overreaction under pressure", "Option B": "A refusal to play by unjust rules", "Option C": "A dramatic gesture to avoid separation", "Option D": "A spontaneous but reckless decision", "Practice": "", "Question": "What kind of leadership act is this?", "Reflection": "When have you or someone you know challenged unfair systems?", "Scene": "Katniss and Peeta prepare to eat poisonous nightlock berries together, choosing mutual death over killing each other. Just before they do, the Capitol intervenes and declares them both winners.", "Title": "The Berries"}, {"Challenge": 3.2, "Clue Word": "VISIONARY", "Correct Answer": "C", "Media": "", "Option A": "He aligns his designs with audience preferences", "Option B": "He avoids drawing negative attention", "Option C": "He uses creative vision to challenge expectations", "Option D": "He refines traditional Capitol styles", "Practice": "", "Question": "What leadership behavior does Cinna demonstrate here?", "Reflection": "How have you\u2014or someone you know\u2014used creativity to challenge the status quo? What was the result?", "Scene": "Cinna meets with Katniss before the Opening Ceremony. He creates a costume that appears to ignite in flames\u2014something bold and unforgettable.", "Title": "Cinna\u0027s Fiery Design"}, {"Challenge": 4.1, "Clue Word": "TRUST", "Correct Answer": "B", "Media": "", "Option A": "She\u2019s using Rue for info", "Option B": "She trusts and empowers Rue", "Option C": "She needs protection", "Option D": "She\u2019s pretending", "Practice": "", "Question": "What does this show?", "Reflection": "How do strong leaders build trust across differences? When have you seen empowerment create unexpected strength?", "Scene": "Katniss teams up with Rue not as a protector, but as a partner. Their alliance is built on mutual respect and trust\u2014not pity.", "Title": "Allies with Rue"}, {"Challenge": 4.2, "Clue Word": "CARE", "Correct Answer": "B", "Media": "", "Option A": "Strategic manipulation", "Option B": "Empathy and emotional courage", "Option C": "Physical strength", "Option D": "Defiance against all odds", "Practice": "", "Question": "What leadership quality does this most reflect?", "Reflection": "How do acts of empathy and vulnerability help build connection or loyalty in teams you\u2019ve been part of?", "Scene": "Katniss finds Peeta seriously injured and risks her safety to care for him. Her actions reveal the emotional strength it takes to care for others in vulnerable moments.", "Title": "Peeta and the Cave"}, {"Challenge": 5.1, "Clue Word": "GRATITUDE", "Correct Answer": "C", "Media": "", "Option A": "Forced propaganda", "Option B": "Capitulation to Capitol norms", "Option C": "Heartfelt recognition and courage", "Option D": "Political maneuvering", "Practice": "", "Question": "What does this act represent?", "Reflection": "When have you received or witnessed recognition that felt truly authentic and meaningful? How did it affect your sense of belonging or motivation?", "Scene": "At the start of the Victory Tour, Peeta delivers a speech in District 11 to honor Rue and Thresh. He breaks from Capitol expectations and shows deep compassion.", "Title": "Tribute Speech"}, {"Challenge": 5.2, "Clue Word": "ENCOURAGE", "Correct Answer": "C", "Media": "", "Option A": "Strategic reassurance to improve performance", "Option B": "Compliance with Capitol etiquette", "Option C": "Genuine encouragement and emotional affirmation", "Option D": "Subtle manipulation to gain her trust", "Practice": "", "Question": "What leadership value does Cinna demonstrate in this moment?", "Reflection": "When has someone\u2019s belief in you made a difference during a difficult time? How did their words or actions affect your motivation?", "Scene": "Just before the Games begin, Cinna offers Katniss a quiet, personal moment of support. He says, \u201cI\u0027m not allowed to bet, but if I could, my money would be on you.\u201d", "Title": "Cinna\u2019s Bet"}];
+let currentIndex = 0;
+const clueWords = [];
+const reflections = [];
+const selectedAnswers = [];
+
+function loadChallenge() {
+    const ch = challenges[currentIndex];
+    const container = document.getElementById('challenge-container');
+    container.innerHTML = `<h2>Challenge ${ch.Challenge}: ${ch.Title}</h2><p>${ch.Scene}</p>`;
+    container.innerHTML += '<form id="quizForm">';
+    ['A','B','C','D'].forEach(l => {
+        const opt = ch["Option " + l];
+        if (opt) {
+            container.innerHTML += `<label><input type="radio" name="answer" value="${l}"> ${opt}</label><br>`;
+        }
+    });
+    container.innerHTML += '</form>';
+    container.innerHTML += `<button onclick="submitAnswer()">Submit Answer</button>`;
+}
+
+function submitAnswer() {
+    const radios = document.getElementsByName('answer');
+    let selected = '';
+    for (let r of radios) {
+        if (r.checked) {
+            selected = r.value;
+            break;
+        }
+    }
+    if (!selected) {
+        alert('Please select an answer.');
+        return;
+    }
+
+    const ch = challenges[currentIndex];
+    selectedAnswers.push(selected);
+    const container = document.getElementById('challenge-container');
+
+    if (selected === ch["Correct Answer"]) {
+        clueWords.push(ch["Clue Word"]);
+        container.innerHTML += `<p><strong>Correct!</strong> Your clue word is: <strong>${ch["Clue Word"]}</strong></p>`;
+    } else {
+        clueWords.push("[Wrong Answer - No Clue]");
+        container.innerHTML += `<p><strong>Incorrect.</strong> No clue word earned.</p>`;
+    }
+
+    container.innerHTML += `<label for="reflection">Reflection:</label><textarea id="reflection-input" placeholder="${ch["Reflection"]}"></textarea><br>`;
+    container.innerHTML += `<button onclick="saveReflection()">Next</button>`;
+}
+
+function saveReflection() {
+    const reflection = document.getElementById('reflection-input').value;
+    reflections.push(reflection);
+    currentIndex++;
+    if (currentIndex >= challenges.length) {
+        document.getElementById('challenge-container').classList.add('hidden');
+        document.getElementById('final-section').classList.remove('hidden');
+    } else {
+        loadChallenge();
+    }
+}
+
+function validateClues() {
+    const correctClues = clueWords.map(c => c.toUpperCase()).join('');
+    let entered = '';
+    for (let i = 0; i < 10; i++) {
+        entered += document.getElementById('clueinput' + i).value.trim().toUpperCase();
+    }
+    if (entered === correctClues) {
+        document.getElementById('final-message').classList.remove('hidden');
+    } else {
+        alert('Clue words are incorrect. Try again.');
+    }
+}
+
+function downloadTXT() {
+    const name = document.getElementById('username').value;
+    let txt = `Escape the Arena - Reflections and Clues
+Name/Team: ${name}
+
+`;
+    challenges.forEach((ch, i) => {
+        txt += `Challenge ${ch.Challenge}: ${ch.Title}
+Your Answer: ${selectedAnswers[i]}
+Clue Word: ${clueWords[i]}
+Reflection: ${reflections[i]}
+
+`;
+    });
+    const blob = new Blob([txt], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'escape_the_arena_reflections.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+window.onload = loadChallenge;
+</script>
+
+</body>
+</html>
