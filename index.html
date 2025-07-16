@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leadership Flashcard Journey</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .card-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .flashcard {
+      display: none;
+      background-color: #2c2c2c;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      overflow: hidden;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .flashcard img {
+      max-height: 60vh;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      margin-top: 1rem;
+    }
+    .prompt {
+      padding: 1rem;
+      font-size: 1.2rem;
+      background-color: #1e1e1e;
+      width: 100%;
+    }
+    .button-container {
+      margin: 1rem;
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+    .nav-btn {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      background-color: #ba372a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Leadership at Your Best - Flashcard Journey</h1>
+  <div class="card-container">
+    <div class="flashcard" id="card0" style="display: flex;">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/HG%20Card%20Image%20-%20Context.png" alt="Context" />
+      <div class="prompt"><strong>Context:</strong> Where did this experience happen? Was it in your personal or professional life?</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showNext(1)">Next</button>
+      </div>
+    </div>
+    <div class="flashcard" id="card1">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/HG%20Card%20Image%20-%20Role.png" alt="Role" />
+      <div class="prompt"><strong>Your Role:</strong> What was your role in this situation? Formal or informal leadership?</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showPrev(0)">Back</button>
+        <button class="nav-btn" onclick="showNext(2)">Next</button>
+      </div>
+    </div>
+    <div class="flashcard" id="card2">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/HG%20Card%20Image%20-%20Challenge.png" alt="Challenge" />
+      <div class="prompt"><strong>The Challenge:</strong> What was the main challenge you and your group were facing?</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showPrev(1)">Back</button>
+        <button class="nav-btn" onclick="showNext(3)">Next</button>
+      </div>
+    </div>
+    <div class="flashcard" id="card3">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/HG%20Card%20Image%20-%20Actions.png" alt="Actions" />
+      <div class="prompt"><strong>Your Actions:</strong> What did you do that showed you “leading at your best”? Be specific.</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showPrev(2)">Back</button>
+        <button class="nav-btn" onclick="showNext(4)">Next</button>
+      </div>
+    </div>
+    <div class="flashcard" id="card4">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/ChatGPT%20Image%20Jul%2016%2C%202025%2C%2005_16_52%20PM.png" alt="Connections to Assessments" />
+      <div class="prompt"><strong>Connections to Assessments:</strong> Look at your results from the Personality Assessor, Leadership Practices Self-Assessment, and EQ 2.0. What strengths do you see reflected in your actions?</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showPrev(3)">Back</button>
+        <button class="nav-btn" onclick="showNext(5)">Next</button>
+      </div>
+    </div>
+    <div class="flashcard" id="card5">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/HG%20Card%20Image%20-%20Lessons.png" alt="Lessons Learned" />
+      <div class="prompt"><strong>Lessons Learned:</strong> What are 3–5 key lessons you took from this experience?</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showPrev(4)">Back</button>
+        <button class="nav-btn" onclick="showNext(6)">Next</button>
+      </div>
+    </div>
+    <div class="flashcard" id="card6">
+      <img src="https://raw.githubusercontent.com/drwildermuth/leadership-at-your-best/refs/heads/main/HG%20Card%20Image%20-%20Leadership%20Advice.png" alt="Leadership Advice" />
+      <div class="prompt"><strong>Leadership Advice:</strong> Based on this experience, what advice would you give someone learning to lead?</div>
+      <div class="button-container">
+        <button class="nav-btn" onclick="showPrev(5)">Back</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function showNext(id) {
+      document.querySelectorAll('.flashcard').forEach(c => c.style.display = 'none');
+      document.getElementById(`card${id}`).style.display = 'flex';
+    }
+    function showPrev(id) {
+      document.querySelectorAll('.flashcard').forEach(c => c.style.display = 'none');
+      document.getElementById(`card${id}`).style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
